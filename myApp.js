@@ -32,7 +32,7 @@ const createAndSavePerson = (done) => {
     console.error(err);
   }); 
 
-  done(null /*, data*/);
+  done(null , data);
 };
 
 const createManyPeople = (arrayOfPeople, done) => {
