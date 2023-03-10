@@ -12,9 +12,11 @@ const personSchema = new Schema({
     },
     age: Number,
     favoriteFoods: Array
-  });
+});
 
-let Person;
+let Person = mongoose.model("Person", personSchema);
+
+// let Person;
 
 const createAndSavePerson = (done) => {
   done(null /*, data*/);
