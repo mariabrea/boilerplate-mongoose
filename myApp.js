@@ -11,7 +11,7 @@ const personSchema = new Schema({
       required: true
     },
     age: Number,
-    favoriteFoods: Array
+    favoriteFoods: [String]
 });
 
 let Person = mongoose.model("Person", personSchema);
@@ -112,19 +112,45 @@ const findPersonById = (personId, done) => {
   });
 };
 
-findPersonById("640ca7d6997a3a5478b68e0f", (err, data) => {
-  if (err) {
-      console.log(err);
-      return;
-  }
-  console.log(data);
-});
+// findPersonById("640ca7d6997a3a5478b68e0f", (err, data) => {
+//   if (err) {
+//       console.log(err);
+//       return;
+//   }
+//   console.log(data);
+// });
 
 const findEditThenSave = (personId, done) => {
   const foodToAdd = "hamburger";
 
-  done(null /*, data*/);
+  Person.findById(personId, function(err, foundPerson) {
+    if (err){
+      console.log(err);
+      done(err);
+    } else {
+      console.log(foundPerson);
+      foundPerson.favoriteFoods.push(foodToAdd);
+      foundPerson.save(function(err, data) {
+        if (err){
+          console.log(err);
+          done(err);
+        } else {
+          console.log(data);
+          done(null , data);
+        }
+      });
+      done(null , foundPerson);
+    }
+  });
 };
+
+// findEditThenSave("640cafdd06c372a0349b7cac", (err, data) => {
+//     if (err) {
+//         console.log(err);
+//         return;
+//     }
+//     console.log(data);
+//   });
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
