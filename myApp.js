@@ -226,10 +226,27 @@ const removeManyPeople = (done) => {
 // });
 
 const queryChain = (done) => {
-  const foodToSearch = "burrito";
+  const foodToSearch = "tacos";
 
-  done(null /*, data*/);
+  Person.find({favoriteFoods: {$in: foodToSearch}}).sort({name: 1}).limit(2).select({age: 0}).exec((err, data) => {
+    if (err){
+      console.log(err);
+      done(err);
+    } else {
+      console.log(data);
+      done(null , data);
+    }
+  });
 };
+
+// queryChain((err, data) => {
+//   if (err) {
+//     console.log(err);
+//     return;
+//   }
+//   console.log("queryChain");
+//   console.log(data);
+// });
 
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
