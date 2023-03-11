@@ -217,13 +217,13 @@ const removeManyPeople = (done) => {
   });
 };
 
-removeManyPeople((err, data) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log(data);
-});
+// removeManyPeople((err, data) => {
+//   if (err) {
+//     console.log(err);
+//     return;
+//   }
+//   console.log(data);
+// });
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
