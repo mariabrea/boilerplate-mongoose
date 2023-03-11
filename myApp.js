@@ -20,9 +20,9 @@ let Person = mongoose.model("Person", personSchema);
 
 const createAndSavePerson = (done) => {
   const person = new Person({
-    name: "Luis Lopez",
-    age: 43,
-    favoriteFoods: ["jamon", "pasta", "pork"]
+    name: "Poldo",
+    age: 40,
+    favoriteFoods: [ 'spaghetti' ]
   });
 
   person.save(function(err, data) {
@@ -36,6 +36,14 @@ const createAndSavePerson = (done) => {
   });
 
 };
+
+// createAndSavePerson((err, data) => {
+//   if (err) {
+//       console.log(err);
+//       return;
+//   }
+//   console.log(data);
+// });
 
 const createManyPeople = (arrayOfPeople, done) => {
   Person.create(arrayOfPeople, function(err, data) {
@@ -125,9 +133,11 @@ const findEditThenSave = (personId, done) => {
 
   Person.findById(personId, function(err, foundPerson) {
     if (err){
+      console.log("not foundPerson");
       console.log(err);
       done(err);
     } else {
+      console.log("foundPerson");
       console.log(foundPerson);
       foundPerson.favoriteFoods.push(foodToAdd);
       foundPerson.save(function(err, data) {
@@ -139,18 +149,33 @@ const findEditThenSave = (personId, done) => {
           done(null , data);
         }
       });
-      done(null , foundPerson);
+      // done(null , foundPerson);
     }
   });
+
+  //////////////////
+  // Person.findById(personId, (err, data) => {
+  //   if (err) { done(err) }
+  //   console.log(data);
+  //   data.favoriteFoods.push(foodToAdd);
+  //   data.save((err, data) => {
+  //   if (err) { done(err) }
+  //   else { done(null, data) }
+  // });
+  //   // done(null, data);
+  // });
+  
+  // done(null/*, data*/);
+  //////////////////
 };
 
-// findEditThenSave("640cafdd06c372a0349b7cac", (err, data) => {
-//     if (err) {
-//         console.log(err);
-//         return;
-//     }
-//     console.log(data);
-//   });
+findEditThenSave("640cb7441a19d274f025d4a0", (err, data) => {
+    if (err) {
+        console.log(err);
+        return;
+    }
+    console.log(data);
+  });
 
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
