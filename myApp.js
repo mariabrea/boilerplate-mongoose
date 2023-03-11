@@ -149,39 +149,39 @@ const findEditThenSave = (personId, done) => {
           done(null , data);
         }
       });
-      // done(null , foundPerson);
     }
   });
 
-  //////////////////
-  // Person.findById(personId, (err, data) => {
-  //   if (err) { done(err) }
-  //   console.log(data);
-  //   data.favoriteFoods.push(foodToAdd);
-  //   data.save((err, data) => {
-  //   if (err) { done(err) }
-  //   else { done(null, data) }
-  // });
-  //   // done(null, data);
-  // });
-  
-  // done(null/*, data*/);
-  //////////////////
 };
 
-findEditThenSave("640cb7441a19d274f025d4a0", (err, data) => {
-    if (err) {
-        console.log(err);
-        return;
-    }
-    console.log(data);
-  });
+// findEditThenSave("640cb7441a19d274f025d4a0", (err, data) => {
+//     if (err) {
+//         console.log(err);
+//         return;
+//     }
+//     console.log(data);
+//   });
 
 const findAndUpdate = (personName, done) => {
-  const ageToSet = 20;
-
-  done(null /*, data*/);
+  Person.findOneAndUpdate({name: personName}, {age: 20}, { new: true, useFindAndModify: false }, function(err, newPerson) {
+    if (err){
+      console.log(err);
+      done(err);
+    } else {
+      console.log("newPerson");
+      console.log(newPerson);
+      done(null , newPerson);
+    }
+  });
 };
+
+// findAndUpdate("John Smith", (err, data) => {
+//       if (err) {
+//           console.log(err);
+//           return;
+//       }
+//       console.log(data);
+//     });
 
 const removeById = (personId, done) => {
   done(null /*, data*/);
